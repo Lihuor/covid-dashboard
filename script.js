@@ -1,3 +1,5 @@
+$(function() {
+
 var settings = {
     "async": true,
     "crossDomain": true,
@@ -13,20 +15,106 @@ var settings = {
 $.ajax(settings).done(function(response) {
     //print full array 
     var dataArray = response.response;
-    console.log(dataArray);
-    $.each(dataArray, function(index, value) {
-        $("#frame1").empty();
-        var continent = console.log(value.continent);
-        var country = console.log(value.country);
-        $("#frame1").append("<option value='" + continent + "'>" + country + "</option>");
+    var table = $('<table>');
+    var tr = $('<tr>');
+    var th1 = $('<th>').text('Country');
+    var th2 = $('<th>').text('Total Cases');
+    var th3 = $('<th>').text('Deaths');
+    var th4 = $('<th>').text('New Cases');
+    table.append(tr);
+    tr.append(th1, th2, th3, th4);
 
+    //sort response by number of cases highest to lowest
+    var sortedData = dataArray.sort((a,b) => b.cases.total - a.cases.total)
+    var labels1 = [];
+    var data1 = [];
+    var count = 0;
+    var index = 0;
+    while (count < 10){
+
+        if(sortedData[index].continent === sortedData[index].country){
+        index++
+        continue;
+        }
+        labels1.push(sortedData[index].country);
+        data1.push(sortedData[index].cases.total);
+        var totalCases = sortedData[index].cases.total.toLocaleString();
+        var totalDeaths = sortedData[index].deaths.total.toLocaleString();
+        var tr = $('<tr>');
+        var td1 = $('<td>').text(sortedData[index].country);
+        var td2 = $('<td>').text(totalCases);
+        var td3 = $('<td>').text(totalDeaths);
+        var td4 = $('<td>').text(sortedData[index].cases.new);
+        tr.append(td1,td2,td3,td4);
+        table.append(tr);
+        index++
+        count++;
+        
+    }
+    
+
+
+    
+
+
+    $('#frame2').append(table);
+
+    var ctx = $('#covid-chart');
+    // var labels1 = sortedData.map(function(e) {
+    //     return e.country
+    // });
+    // var data1 = sortedData.map(function(e) {
+    //     return e.cases.total
+    // });
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels1,
+            datasets: [{
+                label: 'Total Cases',
+                data: data1,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(26, 19, 64, 0.2)',
+                    'rgba(45, 196, 164, 0.2)',
+                    'rgba(60, 20, 64, 0.2)',
+                    'rgba(205, 70, 64, 0.2)'
+                    
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(26, 19, 64, 1)',
+                    'rgba(45, 196, 164, 1)',
+                    'rgba(60, 20, 64, 1)',
+                    'rgba(205, 70, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
     });
-    // console.log(value);
-    // console.log(value.country);
-    // console.log(value.cases.new);
-    // console.log(value.cases.active);
-    // console.log(value.cases.recovered);
-    // return (value !== 'three');
-    // );
 
+
+});
+
+// Creating the current Date
+$("#currentDate").text(moment().format('LLL'));
 });

@@ -17,19 +17,35 @@
         
         
     <title>Home - COVID19 Hotspots</title>
+
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- charts.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>COVID-19 Dashboard</title>
 </head>
 
 <body>
-    <!-- Top Navbar -->
+    <!-- Top Navbar index, resources, hygiene-->
     <nav>
         <div class="nav-wrapper teal darken-2">
-            <a href="#" class="brand-logo">Coronavirus (COVID-19) Information</a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="index.html">Hot spot Location</a></li>
-                <li><a href="statistics.html">Statistics</a></li>
-                <li><a href="resources.html">Resources</a></li>
-                <li><a href="hygiene.html">Hygiene Procedures</a></li>
-            </ul>
+        <a href="#" class="brand-logo">Coronavirus (COVID-19) Hygiene Information</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="index.html">Hot spot Location</a></li>
+            <li><a href="statistics.html">Statistics</a></li>
+            <li><a href="resources.html">Resources</a></li>
+            <li><a href="hygiene.html">Hygiene Procedures</a></li>
+        </ul>
+        
         </div>
     </nav>
 
@@ -50,23 +66,29 @@
         <h3 class="center">Global Hotspots COVID19</h3>
     </div>
     
-    <div class="container">
+    <div class="container card teal">
         <div class="card teal">
             <div class="card-content white-text">
                 <span class="card-title" id="currentCountry">Current Country Search Statistics</span>
+    <div id="currentDate" class="grey white-text" style="padding: 0.5em; border-radius: 2px;"></div>
+    <!-- Page Content goes here -->
+    <div class="container">
+        <div class="card grey">
+            <div id="map" class="card-content white-text">
+                <span class="card-title" id="currentCountry">Hot spot map</span>
             </div>
         </div>
-        <!-- Page Content goes here -->
     </div>
-
     <div class="row">
         <div class="col s6">
             <div class="card teal darken-1">
                 <div class="card-content white-text">
-                    <span class="card-title">Graph Statistics</span>
-                    <p class="card-category">Updated ...</p>
+                    <span class="card-title"></span>
+                    <p class="card-category"></p>
                     <div class="card-header ">
-                        <div id="frame1" style="height: 79vh"></div>
+                        <div id="frame1" style="height: 79vh">
+                            <canvas id="covid-chart" width="400" height="400"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -74,55 +96,28 @@
         <div class="col s6">
             <div class="card teal darken-1">
                 <div class="card-content white-text">
-                    <span class="card-title">Total Statistics</span>
-                    <p class="card-category">Updated ...</p>
+                    <span class="card-title"></span>
+                    <p class="card-category"></p>
                     <div class="card-header ">
-                        <div id="frame1" style="height: 79vh"></div>
+                        <div id="frame2" style="height: 79vh"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
-    <div class = "row">
-        <div class="col s12 m12">
-        <p class="light">
-            <h3 class="center">Statistics Dashboard </h3>
-        </p>
-        <p class="light">
-        </div>
     </div>
-
-    <div class = "row">
-        <div class="col s6">
-            <div class="card teal darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title">Graph Statistics</span>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col s6">
-            <div class="card teal darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title">Total Statistics</span>
-                </div> 
-            </div>
-        </div>
     </div>
     
-        
 
 
 <!-- Creating the Footer -->
 <footer class="page-footer orange darken-2">
-    <div class="container">
-        <div class="row">
-            <div class="col l6 s12">
-                <h5 class="white-text">Team Bio</h5>
-                <p class="orange-text text-lighten-4">We are a Covid-19 fighting team who working on this project like it's our full time job. Any contribution would help support and continue development o this project and is greatly appreciated.</p>
-            </div>
+    <div class="row">
+        <div class="col l12 s12">
+            <h5 class="white-text">Team Bio</h5>
+            <p class="orange-text text-lighten-4">We are a Covid-19 fighting team who working on this project like it's our full time job. Any contribution would help support and continue development o this project and is greatly appreciated.</p>
         </div>
+        Copyright 2020: Team Quaranteam!
     </div>
   </footer>
     <!-- Compiled and minified JavaScript -->
@@ -131,10 +126,8 @@
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="./materialize/js/materialize.js</script>
     <script src="./materialize/js/materialize.min.js"></script>
-</body>
-</html>
-
-</footer>
-
+    <!-- Creating the Footer -->
+    
+   
 </body>
 </html>
